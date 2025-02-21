@@ -10,6 +10,8 @@ class SentimentAnalyzer extends Component
     public $input = '';
     public $sentiment = '';
     private $model;
+    // loading indicator
+    public $loading = false;
 
     public function __construct()
     {
@@ -22,7 +24,8 @@ class SentimentAnalyzer extends Component
             $this->sentiment = 'Invalid input! Please enter some text.';
             return;
         }
-
+        // setting the loading indicator to true until we receive a response
+        $this->loading = true;
         try {
             $apiKey = env('HUGGINGFACE_API_KEY');
             $response = Http::withHeaders([
@@ -43,6 +46,8 @@ class SentimentAnalyzer extends Component
         } catch (\Exception $e) {
             $this->sentiment = 'API error. Please try again later.';
         }
+        // setting the loading indicator to false after we received a response
+        $this->loading = false;
     }
     private function getSentimentBadge($sentiment)
     {
