@@ -5,6 +5,7 @@ namespace App\Livewire;
 use Illuminate\Support\Facades\Http;
 use Livewire\Component;
 
+
 class SentimentAnalyzer extends Component
 {
     public $input = '';
@@ -30,7 +31,8 @@ class SentimentAnalyzer extends Component
                 'Authorization' => 'Bearer ' . $apiKey,
                 'Content-Type' => 'application/json',
                 'Accept' => 'application/json',
-            ])->post("https://api-inference.huggingface.co/models/{$this->model}", [
+            ])->post("http+
+            s://api-inference.huggingface.co/models/{$this->model}", [
                 'inputs' => $this->input,
             ]);
 
